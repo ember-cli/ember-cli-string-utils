@@ -6,7 +6,9 @@
   "scripts": {
     "test": "mocha test"
   },
-  "files": [ "index.js" ],
+  "files": [
+    "index.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ember-cli/ember-cli-string-utils.git"
@@ -19,6 +21,6 @@
   "homepage": "https://github.com/ember-cli/ember-cli-string-utils#readme",
   "devDependencies": {
     "chai": "^3.2.0",
-    "mocha": "^2.2.5"
+    "mocha": "^3.0.1"
   }
 }
