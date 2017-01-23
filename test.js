@@ -32,6 +32,15 @@ describe('string utils', function() {
     });
   });
 
+  describe('classify', function() {
+    it('classifies', function() {
+      expect(utils.classify('innerHTML')).to.eql('InnerHTML');
+      expect(utils.classify('action_name')).to.eql('ActionName');
+      expect(utils.classify('css-class-name')).to.eql('CssClassName');
+      expect(utils.classify('my favorite items')).to.eql('MyFavoriteItems');
+    });
+  });
+
   describe('underscore', function() {
     it('underscores', function() {
       expect(utils.underscore('innerHTML')).to.eql('inner_html');
