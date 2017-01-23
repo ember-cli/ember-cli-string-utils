@@ -36,6 +36,7 @@ describe('string utils', function() {
       expect(camelize('action_name')).to.eql('actionName');
       expect(camelize('css-class-name')).to.eql('cssClassName');
       expect(camelize('my favorite items')).to.eql('myFavoriteItems');
+      expect(camelize('My favorite items')).to.eql('myFavoriteItems');
     });
   });
 
@@ -45,6 +46,7 @@ describe('string utils', function() {
       expect(classify('action_name')).to.eql('ActionName');
       expect(classify('css-class-name')).to.eql('CssClassName');
       expect(classify('my favorite items')).to.eql('MyFavoriteItems');
+      expect(classify('My favorite items')).to.eql('MyFavoriteItems');
     });
   });
 
