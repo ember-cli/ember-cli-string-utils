@@ -7,6 +7,54 @@ var STRING_CAMELIZE_REGEXP = (/(\-|_|\.|\s)+(.)?/g);
 var STRING_UNDERSCORE_REGEXP_1 = (/([a-z\d])([A-Z]+)/g);
 var STRING_UNDERSCORE_REGEXP_2 = (/\-|\s+/g);
 
+function decamelize(str) {
+  return str.replace(STRING_DECAMELIZE_REGEXP, '$1_$2').toLowerCase();
+}
+
+function dasherize(str) {
+  var cache = STRING_DASHERIZE_CACHE,
+      hit   = cache.hasOwnProperty(str),
+      ret;
+
+  if (hit) {
+    return cache[str];
+  } else {
+    ret = decamelize(str).replace(STRING_DASHERIZE_REGEXP,'-');
+    cache[str] = ret;
+  }
+
+  return ret;
+}
+
+function camelize(str) {
+  return str.replace(STRING_CAMELIZE_REGEXP, function(match, separator, chr) {
+    return chr ? chr.toUpperCase() : '';
+  }).replace(/^([A-Z])/, function(match) {
+    return match.toLowerCase();
+  });
+}
+
+function classify(str) {
+  var parts = str.split('.'),
+      out = [];
+
+  for (var i=0, l=parts.length; i<l; i++) {
+    var camelized = camelize(parts[i]);
+    out.push(camelized.charAt(0).toUpperCase() + camelized.substr(1));
+  }
+
+  return out.join('.');
+}
+
+function underscore(str) {
+  return str.replace(STRING_UNDERSCORE_REGEXP_1, '$1_$2').
+    replace(STRING_UNDERSCORE_REGEXP_2, '_').toLowerCase();
+}
+
+function capitalize(str) {
+  return str.charAt(0).toUpperCase() + str.substr(1);
+}
+
 module.exports = {
   /**
     Converts a camelized string into all lower case separated by underscores.
@@ -22,9 +70,7 @@ module.exports = {
     @param {String} str The string to decamelize.
     @return {String} the decamelized string.
   */
-  decamelize: function(str) {
-    return str.replace(STRING_DECAMELIZE_REGEXP, '$1_$2').toLowerCase();
-  },
+  decamelize: decamelize,
 
   /**
     Replaces underscores, spaces, or camelCase with dashes.
@@ -40,20 +86,7 @@ module.exports = {
     @param {String} str The string to dasherize.
     @return {String} the dasherized string.
   */
-  dasherize: function(str) {
-    var cache = STRING_DASHERIZE_CACHE,
-        hit   = cache.hasOwnProperty(str),
-        ret;
-
-    if (hit) {
-      return cache[str];
-    } else {
-      ret = this.decamelize(str).replace(STRING_DASHERIZE_REGEXP,'-');
-      cache[str] = ret;
-    }
-
-    return ret;
-  },
+  dasherize: dasherize,
 
   /**
     Returns the lowerCamelCase form of a string.
@@ -70,13 +103,7 @@ module.exports = {
     @param {String} str The string to camelize.
     @return {String} the camelized string.
   */
-  camelize: function(str) {
-    return str.replace(STRING_CAMELIZE_REGEXP, function(match, separator, chr) {
-      return chr ? chr.toUpperCase() : '';
-    }).replace(/^([A-Z])/, function(match) {
-      return match.toLowerCase();
-    });
-  },
+  camelize: camelize,
 
   /**
     Returns the UpperCamelCase form of a string.
@@ -92,17 +119,7 @@ module.exports = {
     @param {String} str the string to classify
     @return {String} the classified string
   */
-  classify: function(str) {
-    var parts = str.split('.'),
-        out = [];
-
-    for (var i=0, l=parts.length; i<l; i++) {
-      var camelized = this.camelize(parts[i]);
-      out.push(camelized.charAt(0).toUpperCase() + camelized.substr(1));
-    }
-
-    return out.join('.');
-  },
+  classify: classify,
 
   /**
     More general than decamelize. Returns the lower\_case\_and\_underscored
@@ -119,10 +136,7 @@ module.exports = {
     @param {String} str The string to underscore.
     @return {String} the underscored string.
   */
-  underscore: function(str) {
-    return str.replace(STRING_UNDERSCORE_REGEXP_1, '$1_$2').
-      replace(STRING_UNDERSCORE_REGEXP_2, '_').toLowerCase();
-  },
+  underscore: underscore,
 
   /**
     Returns the Capitalized form of a string
@@ -138,7 +152,5 @@ module.exports = {
     @param {String} str The string to capitalize.
     @return {String} The capitalized string.
   */
-  capitalize: function(str) {
-    return str.charAt(0).toUpperCase() + str.substr(1);
-  }
+  capitalize: capitalize
 };
