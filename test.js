@@ -29,7 +29,6 @@ describe('string utils', function() {
       expect(utils.camelize('action_name')).to.eql('actionName');
       expect(utils.camelize('css-class-name')).to.eql('cssClassName');
       expect(utils.camelize('my favorite items')).to.eql('myFavoriteItems');
-      expect(utils.camelize('My favorite items')).to.eql('myFavoriteItems');
     });
   });
 
