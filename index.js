@@ -92,7 +92,7 @@ function camelize(str) {
   @return {String} the classified string
 */
 function classify(str) {
-  var parts = str.split('.'),
+  var parts = str.replace(/\//g, ' ').split('.'),
       out = [];
 
   for (var i=0, l=parts.length; i<l; i++) {
