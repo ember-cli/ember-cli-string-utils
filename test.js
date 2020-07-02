@@ -47,6 +47,7 @@ describe('string utils', function() {
       expect(classify('css-class-name')).to.eql('CssClassName');
       expect(classify('my favorite items')).to.eql('MyFavoriteItems');
       expect(classify('My favorite items')).to.eql('MyFavoriteItems');
+      expect(classify('foo/bar/Baz')).to.eql('FooBarBaz');
     });
   });
 
