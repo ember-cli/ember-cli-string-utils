@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/ember-cli/ember-cli-string-utils#readme",
   "devDependencies": {
-    "chai": "^4.2.0",
+    "chai": "^4.3.0",
     "mocha": "^8.0.1"
   }
 }
